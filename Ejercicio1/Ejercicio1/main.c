@@ -120,8 +120,8 @@ int main(int argc, const char * argv[]) {
     edicionNomina(nomina, &numTrabajadores);
     impresionTrabajadores(nomina, &numTrabajadores);
     
-    borrarNomina(nomina, &numTrabajadores);
-    impresionTrabajadores(nomina, &numTrabajadores);
+    /*borrarNomina(nomina, &numTrabajadores);
+    impresionTrabajadores(nomina, &numTrabajadores);*/
     
     
     LiberaMemoriaTrabajo(work);
@@ -216,7 +216,6 @@ void borrarNomina(Trabajador * nomina, int * tam)
             free(inicio->apellidos);
             free(inicio->nombre);
             inicio->salario = 0;
-            free(inicio);
         }
     }
 }
@@ -326,7 +325,8 @@ void adicionTorre(Torre * torres, int * tam, Trabajador * persona)
             scanf("%d", &niveles);
             inicio->modales = (int *) malloc(niveles * sizeof(int));
             inicio->diametros = (char **) malloc(2 * sizeof(char *));
-            for(int i = 0; i<niveles; ++i)
+            int i;
+            for(i = 0; i<niveles; ++i)
                 *(inicio->diametros+i) = (char *) malloc(2 * sizeof(char));
             inicio->fecha = (Fecha *) malloc(sizeof(Fecha));
             inicio->fecha->trabajador = persona;
@@ -334,7 +334,7 @@ void adicionTorre(Torre * torres, int * tam, Trabajador * persona)
             strcpy(inicio->tipo, "Torre");
             printf("Dame el periodo: ");
             scanf("%d", &inicio->periodo);
-            for(int i = 0; i<niveles; ++i)
+            for(i = 0; i<niveles; ++i)
             {
                 printf("Nivel %d\n", i);
                 printf("Dame el diametro inferior: ");
@@ -516,6 +516,8 @@ void reporteTrabajadores(Trabajador * nomina, int * tamNomina, Modelo * modelo)
     
     impresionTrabajadores(nomina, tamNomina);
     impresionModelosDia(fechadia, modelo);
+    
+    free(fechadia);
     
 }
 
@@ -726,7 +728,8 @@ void LiberaMemoriaTrabajo(Trabajo * trabajo)
     {
         free(inicioT->fecha);
         nivelesT = inicioT->niveles;
-        for(int i=0; i<nivelesT; ++i)
+        int i;
+        for(i=0; i<nivelesT; ++i)
             free(*(inicioT->diametros+i));
         free(inicioT->diametros);
         free(inicioT->modales);
